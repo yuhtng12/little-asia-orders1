@@ -105,13 +105,13 @@ function App() {
         );
 
         gainNode.gain.exponentialRampToValueAtTime(
-            0.35,
+            0.8,
             startTime + 0.02
         );
 
         gainNode.gain.exponentialRampToValueAtTime(
             0.0001,
-            startTime + 0.35
+            startTime + 0.8
         );
 
         oscillator.start(startTime);
