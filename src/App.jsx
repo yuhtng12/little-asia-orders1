@@ -85,9 +85,19 @@ function App() {
 
       const now = audioContext.currentTime;
 
-      function createBeep(startTime, frequency) {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+      const notes = [
+        { freq: 880, time: 0 },
+        { freq: 1174, time: 0.2 },
+        { freq: 1568, time: 0.4 },
+        { freq: 1174, time: 0.65 }
+      ];
+
+      notes.forEach((note) => {
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gainNode =
+            audioContext.createGain();
 
         oscillator.connect(gainNode);
         gainNode.connect(audioContext.destination);
@@ -95,37 +105,31 @@ function App() {
         oscillator.type = "sine";
 
         oscillator.frequency.setValueAtTime(
-            frequency,
-            startTime
+            note.freq,
+            now + note.time
         );
 
         gainNode.gain.setValueAtTime(
             0.0001,
-            startTime
+            now + note.time
         );
 
         gainNode.gain.exponentialRampToValueAtTime(
             0.8,
-            startTime + 0.02
+            now + note.time + 0.03
         );
 
         gainNode.gain.exponentialRampToValueAtTime(
             0.0001,
-            startTime + 0.8
+            now + note.time + 0.25
         );
 
-        oscillator.start(startTime);
-        oscillator.stop(startTime + 0.4);
-      }
+        oscillator.start(now + note.time);
+        oscillator.stop(now + note.time + 0.3);
+      });
 
-      createBeep(now, 1046);
-      createBeep(now + 0.25, 1318);
-      createBeep(now + 0.5, 1568);
     } catch (error) {
-      console.error(
-          "Ton konnte nicht abgespielt werden:",
-          error
-      );
+      console.error(error);
     }
   }
 
