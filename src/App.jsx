@@ -118,8 +118,8 @@ function App() {
         oscillator.stop(startTime + 0.4);
       }
 
-      createBeep(now, 880);
-      createBeep(now + 0.45, 1100);
+      createBeep(now, 1400);
+      createBeep(now + 0.45, 1700);
     } catch (error) {
       console.error(
           "Ton konnte nicht abgespielt werden:",
